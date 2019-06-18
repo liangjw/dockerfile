@@ -1,12 +1,18 @@
-FROM jenkins/jenkins:lts
-
-ADD kubectl ./kubectl
+FROM jenkins/jnlp-slave
 
 USER root
 
-RUN chmod +x ./kubectl  &&  mv ./kubectl /usr/local/bin/kubectl &&  \
-   apt-get update && \
-   apt-get -y install apt-transport-https \
+# Install maven 3.3.9
+RUN wget http://mirrors.sonic.net/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz && \
+    tar -zxf apache-maven-3.6.1-bin.tar.gz && \
+    mv apache-maven-3.6.1 /usr/local && \
+    rm -f apache-maven-3.6.1-bin.tar.gz && \
+    ln -s /usr/local/apache-maven-3.6.1/bin/mvn /usr/bin/mvn && \
+    ln -s /usr/local/apache-maven-3.6.1 /usr/local/apache-maven
+    
+# Install Docker
+RUN apt-get update && \
+    apt-get -y install apt-transport-https \
       ca-certificates \
       curl \
       gnupg2 \
@@ -18,3 +24,5 @@ RUN chmod +x ./kubectl  &&  mv ./kubectl /usr/local/bin/kubectl &&  \
       stable" && \
    apt-get update && \
    apt-get -y install docker-ce
+
+RUN chmod +x /var/run/docker.sock
