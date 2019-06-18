@@ -25,4 +25,3 @@ RUN apt-get update && \
    apt-get update && \
    apt-get -y install docker-ce
 
-RUN chmod +x /var/run/docker.sock
