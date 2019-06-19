@@ -2,7 +2,7 @@ FROM jenkins/jnlp-slave
 
 USER root
 
-# Install maven 3.3.9
+# Install maven
 RUN wget http://mirrors.sonic.net/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz && \
     tar -zxf apache-maven-3.6.1-bin.tar.gz && \
     mv apache-maven-3.6.1 /usr/local && \
@@ -24,4 +24,9 @@ RUN apt-get update && \
       stable" && \
    apt-get update && \
    apt-get -y install docker-ce
+
+
+# Install nfs
+RUN apt-get install nfs-common
+   
 
