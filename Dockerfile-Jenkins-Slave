@@ -28,5 +28,5 @@ RUN apt-get update && \
 
 # Install nfs
 RUN apt-get -y install nfs-common
-   
 
+RUN mkdir -p /data/.m2
